@@ -6,7 +6,15 @@ import connectDB from "./db/index.js";
 dotenv.config({
     path: './env'
 })
-connectDB()
+connectDB() //because an async function automatically returns a promise
+.then(()=>{
+    app.listen(process.env.PORT || 8000,()=>{
+        console.log(`server is running at port:${process.env.PORT}`)
+    })
+})
+.catch((err)=>{
+    console.log("MONGO db connection failed !!!",err);
+})
 
 
 
