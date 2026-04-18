@@ -52,10 +52,10 @@ const userSchema = new Schema(
     }
 )
 
-userSchema.pre("save" , async function(next){
+userSchema.pre("save" , async function(){
     if(!this.isModified("password")) return next(); //allows to not change the password after every modification in model.
     this.password = await bcrypt.hash(this.password, 10)
-    next()
+
 })
 
 userSchema.methods.isPasswordCorrect = async function (password) {
